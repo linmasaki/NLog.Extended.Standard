@@ -2,12 +2,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>    
     <AssemblyName>NLog.Extended.Standard</AssemblyName>
+    <Title>NLog.Extended.Standard</Title>
     <PackageId>NLog.Extended.Standard</PackageId>
     <Authors>CoCo Lin</Authors>
+    <Description>Implement NLog Custom Extension of Targets and LayoutRenderer with .NET Standard 2.0</Description>
     <PackageProjectUrl>https://github.com/linmasaki/NLog.Extended.Standard</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/linmasaki/CoCoPackageIcon/master/cocodotnet64.png</PackageIconUrl>
     <PackageTags>netcore2 netstandard2.0 NLog NLog.LayoutRenderer NLog.Target</PackageTags>
     <Version>1.0.0</Version> 
+    <Copyright>CoCo Lin, 2018</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NLog" Version="4.5.0" />
