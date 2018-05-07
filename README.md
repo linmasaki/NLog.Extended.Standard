@@ -1,6 +1,6 @@
 # NLog.Extended.Standard
 [![Version](https://img.shields.io/nuget/vpre/NLog.Extended.Standard.svg)](https://www.nuget.org/packages/NLog.Extended.Standard)  
-Implement the custom NLog target and layout renderers with .NET Standard 2.0.   
+Implement NLog various extension of Targets(AzureAppendBlob) and LayoutRenderer(appsetting) with .NET Standard 2.0.   
 
 ## Now Available Features ##   
 ### Targets ###
