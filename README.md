@@ -11,11 +11,13 @@ Implement NLog various extension of Targets(AzureAppendBlob) and LayoutRenderer(
 ## How To Use ##   
 Install the [NLog.Extended.Standard](https://www.nuget.org/packages/NLog.Extended.Standard) package from NuGet. You need add NLog 4.5 or higher, then put the syntax in your NLog configuration below:
 
-    <nlog>
-        <extensions>
-            <add assembly="NLog.Extended.Standard" />
-        </extensions>
-    </nlog>
+```xml
+<nlog>
+    <extensions>
+        <add assembly="NLog.Extended.Standard" />
+    </extensions>
+</nlog>
+```
 
 ### AzureAppendBlob target configuration ###
 The target's type name is ``AzureAppendBlob``.
@@ -26,17 +28,20 @@ The target's type name is ``AzureAppendBlob``.
 * **layout** - (layout)Content text to write.   
 
 #### Example: ####
-    <targets async="true">
-        <target xsi:type="AzureAppendBlob" 
-                name="Azure" 
-                layout="${longdate} ${uppercase:${level}} - ${message}" 
-                connectionString="YourConnectionString" 
-                container="YourContainer" 
-                blobName="logs/${shortdate}.log" />
-    </targets>
-    <rules>
-        <logger name="*" minlevel="Trace" writeTo="Azure"/>
-    </rules>
+
+```xml
+<targets async="true">
+    <target xsi:type="AzureAppendBlob" 
+            name="Azure" 
+            layout="${longdate} ${uppercase:${level}} - ${message}" 
+            connectionString="YourConnectionString" 
+            container="YourContainer" 
+            blobName="logs/${shortdate}.log" />
+</targets>
+<rules>
+    <logger name="*" minlevel="Trace" writeTo="Azure"/>
+</rules>
+```
 
 You can see [NLog Wiki](https://github.com/NLog/NLog) for more information about configuring NLog.   
 #### Note: ####   
@@ -46,13 +51,16 @@ If you only need ``AzureAppendBlob`` target, check [this](https://www.nuget.org/
 The layout renderer's name is ``appsetting``.   
 
 #### Configuration Syntax & Parameters ####
-``${appsetting:name=String.String2.String3:default=String}``
+```xml
+${appsetting:name=String.String2.String3:default=String}
+```
 * **name** - Key in your appsettings.\<EnvironmentName\>.json file. If it has a multi-level hierarchy that you want to access, you can separate by a dot. Required.
 * **default** - Default value if not present. Optional.
 
 #### Example: ####
 Target appsettings.json
 
+```json
     {
         "Mode":"Prod",
         "Options":{
@@ -60,10 +68,11 @@ Target appsettings.json
             "Container":"YourProdContainer"
         }
     }
+```
 
-* **${appsetting:name=Mode}** - Get "Prod" in this case.
-* **${appsetting:name=Options.StorageConnectionString}** - Get "abcdefg123456789" in this case.
-* **${appsetting:name=Options.StorageConnectionString2:default=DefaultString}** - Get "DefaultString" in this case.
+* **``${appsetting:name=Mode}``** - Get "Prod" in this case.
+* **``${appsetting:name=Options.StorageConnectionString}``** - Get "abcdefg123456789" in this case.
+* **``${appsetting:name=Options.StorageConnectionString2:default=DefaultString}``** - Get "DefaultString" in this case.
 
 ## Building ##
 The project is a .NET Standard 2.0 project. If you wish to build it yourself, you'll need install Visual Studio 2017 or Visual Studio Code.
