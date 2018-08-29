@@ -83,6 +83,12 @@ The project is a .NET Standard 2.0 project. If you wish to build it yourself, yo
 ## Test App ##
 NLog.Extended.Standard.Test is a console program that is preconfigured to use the ``AzureAppendBlob`` target and ``appsettings`` layout renderer. To test it, you'll have to create an Azure storage account and a blob account. Lastly, enjoy it!!!  
 
+## Note ##
+If you only need one of these packages, you can get them from links below   
+
+[NLog.AzureAppendBlob.Standard](https://www.nuget.org/packages/NLog.AzureAppendBlob.Standard)   
+[NLog.Appsettings.Standard](https://www.nuget.org/packages/NLog.Appsettings.Standard)
+
 ## Reference ## 
 [NLog.AzureAppendBlob](https://github.com/heemskerkerik/NLog.AzureAppendBlob) by [Erik Heemskerk](https://github.com/heemskerkerik)   
 [NLog.Extended](https://github.com/nlog/nlog/wiki/AppSetting-Layout-Renderer) by [NLog](http://nlog-project.org/)
