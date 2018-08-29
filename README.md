@@ -77,17 +77,14 @@ Target appsettings.json
 * **``${appsettings:name=Options.StorageConnectionString}``** - Get "abcdefg123456789" in this case.
 * **``${appsettings:name=Options.StorageConnectionString2:default=DefaultString}``** - Get "DefaultString" in this case.
 
+#### Note: ####   
+If you only need ``Appsettings`` layout renderer, check [this](https://www.nuget.org/packages/NLog.Appsettings.Standard).  
+
 ## Building ##
 The project is a .NET Standard 2.0 project. If you wish to build it yourself, you'll need install Visual Studio 2017 or Visual Studio Code.
 
 ## Test App ##
 NLog.Extended.Standard.Test is a console program that is preconfigured to use the ``AzureAppendBlob`` target and ``appsettings`` layout renderer. To test it, you'll have to create an Azure storage account and a blob account. Lastly, enjoy it!!!  
-
-## Note ##
-If you only need one of these packages, you can get them from links below   
-
-[NLog.AzureAppendBlob.Standard](https://www.nuget.org/packages/NLog.AzureAppendBlob.Standard)   
-[NLog.Appsettings.Standard](https://www.nuget.org/packages/NLog.Appsettings.Standard)
 
 ## Reference ## 
 [NLog.AzureAppendBlob](https://github.com/heemskerkerik/NLog.AzureAppendBlob) by [Erik Heemskerk](https://github.com/heemskerkerik)   
