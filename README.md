@@ -51,7 +51,7 @@ If you only need ``AzureAppendBlob`` target, check [this](https://www.nuget.org/
 The layout renderer's name is ``appsettings``.  
 
 #### Pay Attention ####
-The previous version was ``appsetting``, you must modify it. ~~``appsetting``~~ -> ``appsettings``)
+The previous version was ``appsetting``, you must modify it. (~~``appsetting``~~ -> ``appsettings``)
 
 #### Configuration Syntax & Parameters ####
 ```xml
