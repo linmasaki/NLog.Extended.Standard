@@ -7,8 +7,8 @@ using NLog.LayoutRenderers;
 
 namespace NLog.Extended.Standard.LayoutRenderers
 {
-    [LayoutRenderer("appsetting")]
-    public class AppSettingLayoutRenderer : LayoutRenderer
+    [LayoutRenderer("appsettings")]
+    public class AppSettingsLayoutRenderer : LayoutRenderer
     {
         private IConfigurationRoot _configurationRoot;
 
@@ -30,7 +30,7 @@ namespace NLog.Extended.Standard.LayoutRenderers
 		    set => _configurationRoot = value;
 		}
 
-        public AppSettingLayoutRenderer() {
+        public AppSettingsLayoutRenderer() {
 
             Settings = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")

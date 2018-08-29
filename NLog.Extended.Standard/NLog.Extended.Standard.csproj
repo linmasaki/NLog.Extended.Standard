@@ -5,12 +5,12 @@
     <Title>NLog.Extended.Standard</Title>
     <PackageId>NLog.Extended.Standard</PackageId>
     <Authors>CoCo Lin</Authors>
-    <Description>Implement NLog various extension of Targets(AzureAppendBlob) and LayoutRenderer(appsetting) with .NET Standard 2.0.</Description>
+    <Description>Implement NLog various extension of Targets(AzureAppendBlob) and LayoutRenderer(appsettings) with .NET Standard 2.0.</Description>
     <PackageProjectUrl>https://github.com/linmasaki/NLog.Extended.Standard</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/linmasaki/CoCoPackageIcon/master/cocodotnet64.png</PackageIconUrl>
-    <PackageTags>netcore2 netstandard2.0 NLog NLog.LayoutRenderer NLog.Target AzureAppendBlob appsettings.json</PackageTags>
+    <PackageTags>netcore2 netstandard2.0 NLog NLog.LayoutRenderer NLog.Target Azure AppendBlob Storage appsettings.json</PackageTags>
     <Version>1.0.1</Version> 
-    <Copyright>CoCo Lin, 2018</Copyright>
+    <Copyright>Copyright © 2018 CoCo Lin</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NLog" Version="4.5.0" />
