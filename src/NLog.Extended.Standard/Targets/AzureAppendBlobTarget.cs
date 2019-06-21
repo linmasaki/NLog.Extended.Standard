@@ -1,6 +1,5 @@
-using System;
-using System.IO;
 using System.Net;
+using System.ComponentModel;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using NLog.Config;
@@ -21,9 +20,13 @@ namespace NLog.Extended.Standard.Targets
         [RequiredParameter]
         public Layout BlobName { get; set; }
 
+        [DefaultValue(false)]
+        public bool ForceCheck { get; set; }
+
         private CloudBlobClient _client;
         private CloudBlobContainer _container;
         private CloudAppendBlob _blob;
+        private bool _forceCheck;
 
         //public AzureAppendBlobTarget()
         //{
@@ -34,11 +37,12 @@ namespace NLog.Extended.Standard.Targets
 		{
 			base.InitializeTarget();
 			_client = null;
+            _forceCheck = ForceCheck;
 		}        
 
         protected override void Write(LogEventInfo logEvent)
         {
-            _client = CloudStorageAccount.Parse(ConnectionString.Render(logEvent)).CreateCloudBlobClient();
+            _client = _client ?? CloudStorageAccount.Parse(ConnectionString.Render(logEvent)).CreateCloudBlobClient();
 
             if (_client == null)
             {
@@ -55,7 +59,7 @@ namespace NLog.Extended.Standard.Targets
                 _blob = null;
             }
 
-            if (_blob == null || _blob.Name != blobName)
+            if (_blob == null || _blob.Name != blobName || _forceCheck)
             {
                 _blob = _container.GetAppendBlobReference(blobName);
 

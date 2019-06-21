@@ -10,7 +10,18 @@ namespace NLog.Extended.Standard.LayoutRenderers
     [LayoutRenderer("appsettings")]
     public class AppSettingsLayoutRenderer : LayoutRenderer
     {
-        private IConfigurationRoot _configurationRoot;
+        private static IConfigurationRoot _configurationRoot;
+
+		internal IConfigurationRoot DefaultAppSettings
+		{
+	    	get => _configurationRoot;
+	    	set => _configurationRoot = value;
+		}
+
+		/// <summary>
+        /// Global configuration. Used if it has set
+        /// </summary>
+        public static IConfiguration AppSettings { private get; set; }
 
         ///<summary>
 		/// The AppSetting name.
@@ -24,19 +35,15 @@ namespace NLog.Extended.Standard.LayoutRenderers
 		///</summary>
 		public string Default { get; set; }
 
-		internal IConfigurationRoot Settings
+        public AppSettingsLayoutRenderer() 
 		{
-			get => _configurationRoot;
-		    set => _configurationRoot = value;
-		}
-
-        public AppSettingsLayoutRenderer() {
-
-            Settings = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true).Build();
+            if(AppSettings == null && DefaultAppSettings == null)
+			{
+		    	DefaultAppSettings = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+    				.AddJsonFile("appsettings.json")
+    				.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true).Build();
+			}
         }
-
 
         /// <summary>
 		/// Renders the specified application setting or default value and appends it to the specified <see cref="StringBuilder" />.
@@ -57,8 +64,7 @@ namespace NLog.Extended.Standard.LayoutRenderers
         }
 
         private bool _cachedAppSettingValue = false;
-		private string _appSettingValue = null;
-		
+		private string _appSettingValue = null;		
 		private string AppSettingValue
 		{
 			get
@@ -66,8 +72,8 @@ namespace NLog.Extended.Standard.LayoutRenderers
                 Name = Name.Replace('.',':');
 				if (_cachedAppSettingValue == false)
 				{
-					_appSettingValue = Settings[Name];
-					_cachedAppSettingValue = true;
+		    		_appSettingValue = AppSettings == null ? DefaultAppSettings[Name] : AppSettings[Name];
+		    		_cachedAppSettingValue = true;
 				}
 				return _appSettingValue;
 			}

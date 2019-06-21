@@ -1,6 +1,7 @@
 # NLog.Extended.Standard
-[![Version](https://img.shields.io/nuget/vpre/NLog.Extended.Standard.svg)](https://www.nuget.org/packages/NLog.Extended.Standard)  
-Implement NLog various extension of Targets(AzureAppendBlob) and LayoutRenderer(appsettings) with .NET Standard 2.0.   
+[![Version](https://img.shields.io/nuget/vpre/NLog.Extended.Standard.svg)](https://www.nuget.org/packages/NLog.Extended.Standard) 
+[![Downloads](https://img.shields.io/nuget/dt/NLog.Extended.Standard.svg)](https://www.nuget.org/packages/NLog.Extended.Standard)  
+Implement NLog various extension of Targets and Layout Renderers to use in .NET Core App(1.x ~ 2.x).  
 
 ## Now Available Features ##   
 ### Targets ###
@@ -20,12 +21,13 @@ Install the [NLog.Extended.Standard](https://www.nuget.org/packages/NLog.Extende
 ```
 
 ### AzureAppendBlob target configuration ###
-The target's type name is ``AzureAppendBlob``.
+The type name of target is ``AzureAppendBlob``.
 
-* **connectionString** - (layout)The connection string for the storage account to use. To Retrieve this at Azure Portal.
-* **container** - (layout)The name of the blob container where logs will be placed. Will be created when it does not exist.
-* **blobName** - (layout)Name of the blob to write to. Will be created when it does not exist.
-* **layout** - (layout)Content text to write.   
+* **layout** - (layout) Content text to write. ***Required***.
+* **connectionString** - (layout) The connection string of the storage account. Consult the Azure Portal to retrieve this. 
+* **container** - (layout) The name of the blob container where logs will be placed. It will be created automatically when it does not exist. 
+* **blobName** - (layout) The name of the blob to write to. It will be created automatically when it does not exist(only once, unless you set **forceCheck** to ``true``). 
+* **forceCheck** - (bool) Check if the target blob exists for each write. ***Optional***. 
 
 #### Example: ####
 
@@ -36,7 +38,8 @@ The target's type name is ``AzureAppendBlob``.
             layout="${longdate} ${uppercase:${level}} - ${message}" 
             connectionString="YourConnectionString" 
             container="YourContainer" 
-            blobName="logs/${shortdate}.log" />
+            blobName="logs/${shortdate}.log" 
+            forceCheck= "false" />
 </targets>
 <rules>
     <logger name="*" minlevel="Trace" writeTo="Azure"/>
@@ -48,7 +51,7 @@ You can see [NLog Wiki](https://github.com/NLog/NLog) for more information about
 If you only need ``AzureAppendBlob`` target, check [this](https://www.nuget.org/packages/NLog.AzureAppendBlob.Standard).  
 
 ### Appsettings layout renderer configuration ###
-The layout renderer's name is ``appsettings``.  
+The name of layout renderer is ``appsettings``.  
 
 #### Pay Attention ####
 The previous version was ``appsetting``, you must modify it. (~~``appsetting``~~ -> ``appsettings``)
@@ -57,8 +60,8 @@ The previous version was ``appsetting``, you must modify it. (~~``appsetting``~~
 ```xml
 ${appsettings:name=String.String2.String3:default=String}
 ```
-* **name** - Key in your appsettings.\<EnvironmentName\>.json file. If it has a multi-level hierarchy that you want to access, you can separate by a dot. Required.
-* **default** - Default value if not present. Optional.
+* **name** - Key in your appsettings.\<EnvironmentName\>.json file. If it has a multi-level hierarchy that you want to access, you can separate by a dot. ***Required***.
+* **default** - Default value if not present. ***Optional***.
 
 #### Example: ####
 Target appsettings.json
@@ -77,11 +80,22 @@ Target appsettings.json
 * **``${appsettings:name=Options.StorageConnectionString}``** - Get "abcdefg123456789" in this case.
 * **``${appsettings:name=Options.StorageConnectionString2:default=DefaultString}``** - Get "DefaultString" in this case.
 
+#### Set Explicit Configuration ####
+In some cases, the library may not work correctly (e.g., always access incorrect appsettings.json). You can set the configuration directly by use the global property ``AppSettings`` before you start logging work as follows
+
+```C#
+using NLog.Appsettings.Standard;
+
+..........
+
+AppSettingsLayoutRenderer.AppSettings = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                                            .AddJsonFile("appsettings.json").AddJsonFile($"appsettings.Development.json", optional: true)
+                                            .Build();
+..........
+```
+
 #### Note: ####   
 If you only need ``Appsettings`` layout renderer, check [this](https://www.nuget.org/packages/NLog.Appsettings.Standard).  
-
-## Building ##
-The project is a .NET Standard 2.0 project. If you wish to build it yourself, you'll need install Visual Studio 2017 or Visual Studio Code.
 
 ## Test App ##
 NLog.Extended.Standard.Test is a console program that is preconfigured to use the ``AzureAppendBlob`` target and ``appsettings`` layout renderer. To test it, you'll have to create an Azure storage account and a blob account. Lastly, enjoy it!!!  
