@@ -23,7 +23,7 @@ Install the [NLog.Extended.Standard](https://www.nuget.org/packages/NLog.Extende
 ### AzureAppendBlob target configuration ###
 The type name of target is ``AzureAppendBlob``.
 
-* **layout** - (layout) Content text to write. ***Required***.
+* **layout** - (layout) Content text to write. 
 * **connectionString** - (layout) The connection string of the storage account. Consult the Azure Portal to retrieve this. 
 * **container** - (layout) The name of the blob container where logs will be placed. It will be created automatically when it does not exist. 
 * **blobName** - (layout) The name of the blob to write to. It will be created automatically when it does not exist(only once, unless you set **forceCheck** to ``true``). 
