@@ -84,7 +84,7 @@ Target appsettings.json
 In some cases, the library may not work correctly (e.g., always access incorrect appsettings.json). You can set the configuration directly by use the global property ``AppSettings`` before you start logging work as follows
 
 ```C#
-using NLog.Appsettings.Standard;
+using NLog.Extended.Standard.LayoutRenderers;
 
 ..........
 
